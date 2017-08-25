@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cards</title>
+    <style>
+        div.card {
+            display: inline-block; padding: 10px; margin: 10px;
+            width: 50px; height: 80px; background: #EEE;
+            border: 3px solid #DDD; border-radius: 5px;
+            font-size: 18pt; text-align: center; line-height: 75px;
+        }
+    </style>
+
+    <script src="jquery-3.2.1.min.js"></script>
+
+</head>
+<body>
+<div id="main"></div>
+<script>
+    function cardDeckBuilder(selector) {
+        console.log("vleze");
+        function addCard(face, suit){
+
+            suit = {
+                'C': "\u2663",  // ♣
+                'D': "\u2666",  // ♦
+                'H': "\u2665",  // ♥
+                'S': "\u2660"   // ♠
+            }[suit];
+
+
+
+            let card = $(`<div class='card'>${face} ${suit}</div>`);
+            card.click(this.rev);
+            $(selector).append(card);
+           }
+
+
+
+        function rev(){
+            let all = $(selector + ' .card').toArray();
+            all.reverse();
+            $(selector).append(all);
+        }
+
+    return {
+            addCard,
+        rev
+    }
+
+
+    }
+</script>
+<script>
+    $(function() {
+        let builder = cardDeckBuilder("#main");
+        builder.addCard("10", "D");
+        builder.addCard("K", "S");
+        builder.addCard("Q", "H");
+        builder.addCard("4", "C");
+
+
+
+
+    });
+</script>
+</body>
+</html>
